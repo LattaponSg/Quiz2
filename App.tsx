@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import {cals} from './cal'
 
 export default function App() {
   const [inputText, setInputText] = useState<string>('');
@@ -8,13 +9,25 @@ export default function App() {
   const [result2, setResult2] = useState<string>('');
   const [result3, setResult3] = useState<string>('');
 
+  function cals(){
+    if (result == "Rock" && result2 == "Paper" || result2 == "Rock" && result == "Paper"){
+        return setResult3("Paper");
+    } else if (result == "Rock" && result2 == "Scissors" || result2 == "Rock" && result == "Scissors"){
+        return setResult3("Rock");
+    } else if (result == "Scissors" && result2 == "Paper" || result2 == "Scissors" && result == "Paper"){
+        return setResult3("Scissors");
+    } else{
+        return setResult3("Fair");
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Rock, Paper, Scissors</Text>
 
       <TextInput
         style={styles.input}
-        placeholder="<name>"
+        placeholder="Player 1"
         placeholderTextColor="#888"
         value={inputText}
         onChangeText={setInputText}
@@ -32,7 +45,7 @@ export default function App() {
 
       <TextInput
         style={styles.input}
-        placeholder="<name>"
+        placeholder="Player 2"
         placeholderTextColor="#888"
         value={inputText2}
         onChangeText={setInputText2}
@@ -46,6 +59,10 @@ export default function App() {
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => setResult2('Scissors' + inputText2)}>
           <Text style={styles.buttonText}>Scissors</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={() => cals()}>
+          <Text style={styles.buttonText}>Cal</Text>
         </TouchableOpacity>
 
       <View style={styles.resultContainer}>
