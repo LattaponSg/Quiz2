@@ -1,0 +1,25 @@
+appId: com.game.quiz2 
+---
+- launchApp
+
+- tapOn:
+    id: "player1"
+- inputText: "A"
+
+- tapOn:
+    id: "player2"
+- inputText: "B"
+
+- hideKeyboard
+
+- tapOn:
+    id: "rock"
+- tapOn:
+    id: "paper2"
+
+- tapOn:
+    id: "winner"
+
+- assertVisible: "A: Rock"
+- assertVisible: "B: Paper"
+- assertVisible: "B Winner"

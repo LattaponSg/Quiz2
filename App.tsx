@@ -9,15 +9,17 @@ export default function App() {
   const [result2, setResult2] = useState<string>('');
   const [result3, setResult3] = useState<string>('');
 
-  function cals(){
-    if (result == "Rock" && result2 == "Paper" || result2 == "Rock" && result == "Paper"){
-        return setResult3("Paper");
-    } else if (result == "Rock" && result2 == "Scissors" || result2 == "Rock" && result == "Scissors"){
-        return setResult3("Rock");
-    } else if (result == "Scissors" && result2 == "Paper" || result2 == "Scissors" && result == "Paper"){
-        return setResult3("Scissors");
-    } else{
+  function Winner(){
+    if (result === result2){
         return setResult3("Fair");
+    } else if (result == "Rock" && result2 == "Paper"){
+        return setResult3(inputText2 + " Winner");
+    } else if (result == "Scissors" && result2 == "Rock"){
+        return setResult3(inputText2 + " Winner");
+    } else if (result == "Paper" && result2 == "Scissors"){
+        return setResult3(inputText2 + " Winner");
+    } else {
+        return setResult3(inputText + " Winner")
     }
   }
 
@@ -27,47 +29,53 @@ export default function App() {
 
       <TextInput
         style={styles.input}
+        testID = "player1"
         placeholder="Player 1"
         placeholderTextColor="#888"
         value={inputText}
         onChangeText={setInputText}
       />
       
-        <TouchableOpacity style={styles.button} onPress={() => setResult('Rock' + inputText)}>
+      <View style={styles.RowButton}>
+        <TouchableOpacity style={styles.button} testID = "rock" onPress={() => setResult('Rock')}>
           <Text style={styles.buttonText}>Rock</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => setResult('Paper' + inputText)}>
+        <TouchableOpacity style={styles.button} testID = "paper" onPress={() => setResult('Paper')}>
           <Text style={styles.buttonText}>Paper</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => setResult('Scissors' + inputText)}>
+        <TouchableOpacity style={styles.button} testID = "sicissors" onPress={() => setResult('Scissors')}>
           <Text style={styles.buttonText}>Scissors</Text>
         </TouchableOpacity>
+      </View>
 
       <TextInput
         style={styles.input}
+        testID = "player2"
         placeholder="Player 2"
         placeholderTextColor="#888"
         value={inputText2}
         onChangeText={setInputText2}
       />
 
-        <TouchableOpacity style={styles.button} onPress={() => setResult2('Rock' + inputText2)}>
-          <Text style={styles.buttonText}>Rock</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => setResult2('Paper' + inputText2)}>
-          <Text style={styles.buttonText}>Paper</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => setResult2('Scissors' + inputText2)}>
-          <Text style={styles.buttonText}>Scissors</Text>
-        </TouchableOpacity>
+        <View style={styles.RowButton}>
+          <TouchableOpacity style={styles.button} testID = "rock2" onPress={() => setResult2('Rock')}>
+            <Text style={styles.buttonText}>Rock</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} testID = "paper2" onPress={() => setResult2('Paper')}>
+            <Text style={styles.buttonText}>Paper</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} testID = "sicissors2" onPress={() => setResult2('Scissors')}>
+            <Text style={styles.buttonText}>Scissors</Text>
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity style={styles.button} onPress={() => cals()}>
-          <Text style={styles.buttonText}>Cal</Text>
+        <TouchableOpacity style={styles.buttonW} testID = "winner" onPress={() => Winner()}>
+          <Text style={styles.buttonText}>Winner</Text>
         </TouchableOpacity>
 
       <View style={styles.resultContainer}>
-        <Text style={styles.resultText}>{result}</Text>
-        <Text style={styles.resultText}>{result2}</Text>
+        <Text style={styles.resultText}>{result ? `${inputText || 'Player 1'}: ${result}` : ''}</Text>
+        <Text style={styles.resultText}>{result2 ? `${inputText2 || 'Player 2'}: ${result2}` : ''}</Text>
       </View>
 
       <View style={styles.resultContainer}>
@@ -88,7 +96,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 15,
+    marginBottom: 30,
     color: '#333',
   },
   input: {
@@ -103,9 +111,22 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   RowButton:{
-    
+    flexDirection: 'row',      
+    justifyContent: 'space-between', 
+    width: '100%',               
+    marginBottom: 15,
+    gap: 10,
   },
   button: {
+    flex: 1,
+    width: '100%',
+    height: 50,
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonW: {
     width: '100%',
     height: 50,
     backgroundColor: '#007AFF',
